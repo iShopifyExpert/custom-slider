@@ -1,3 +1,4 @@
 # Custom Slider
-Three Panel Slider
-Custom Slider Section For Shopify
+Three Panel Custom Slider Section For Shopify
+
+Section > create custom-slider.liquid as a section file
