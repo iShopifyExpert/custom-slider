@@ -1,0 +1,175 @@
+{{ 'owl.carousel.min.css' | asset_url | stylesheet_tag }}
+{{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
+<div class="ascunde cacat"><p>Cutting edge Gifts, gadgets and Assessories</p></div>
+<div class="carousel-container">
+	<div class="owl-carousel">{% for block in section.blocks %}
+		<div>{% if block.settings.image %}
+		  	<a href="{% if block.settings.link != blank %}{{ block.settings.link }}{% else %}#{% endif %}" class="slide-{{ block.id }}">{{ block.settings.image | img_url: '1200x1200' | img_tag: block.settings.image.alt, 'css-here' }}</a>{% else %}
+            <a href="#"><img src="//via.placeholder.com/680x400"/></a>{% endif %}
+		</div>{% endfor %}
+	</div>
+</div>
+{{ 'owl.carousel.min.js' | asset_url | script_tag }}
+<script type="text/javascript">
+	$k = jQuery.noConflict();
+    $k(document).ready(function(){
+		$k(".owl-carousel").owlCarousel({
+			loop: true,
+			autoplay:{{ section.settings.slider_home_auto }},
+			center: true,
+			dots: {{ section.settings.slider_control }},
+			nav: {{ section.settings.slider_control }},
+			navText: ["&nbsp;", "&nbsp;"],
+			responsive: {
+				0: {
+					items: 1
+				},
+				1024: {
+					items: 2
+				}
+			}
+		});
+	});
+</script>
+<style>
+  .carousel-container .owl-nav .owl-next {
+    right: 10px;
+    background: transparent url({{'icon-arrow-right.png' | asset_url}}) 0 0 no-repeat;
+}
+.carousel-container .owl-nav .owl-prev {
+    left: 10px;
+    background: transparent url({{'icon-arrow-left.png' | asset_url}}) 0 0 no-repeat;
+}
+</style>
+{% schema %}
+  {
+    "name": "Custom Slider",
+    "max_blocks": 15,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "slider_home_auto",
+        "label": "Auto-rotate slides",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_control",
+        "label": "Show slide control",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Slider",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% stylesheet %}
+.carousel-container {
+	max-width: 1400px;
+	margin: 0 auto;
+}
+.carousel-container .owl-item {
+	opacity: 0.2;
+	transition-duration: 1s;
+	-webkit-transition-duration: 1s;
+	-moz-transition-duration: 1s;
+	-o-transition-duration: 1s;
+	transition-duration: 1s;
+}
+.carousel-container .owl-item.center {
+    opacity: 1;
+    transition-duration: 1s;
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s;
+}
+.owl-dots {
+    margin: 20px 0;
+    text-align: center;
+}
+.owl-dots > .owl-dot {
+	display: inline-block;
+	margin: 0 5px;
+	cursor: pointer;
+}
+.owl-dots > .owl-dot > span {
+    display: block;
+    position: relative;
+    width: 13px;
+    height: 13px;
+    line-height: 12px;
+    text-indent: -999em;
+    border: 2px solid #267DD1;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+.owl-dots > .owl-dot.active > span {
+    border-width: 5px;
+}
+.carousel-container .owl-nav {
+    margin: 0 auto;
+    max-width: 70%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    left: 50%;
+    pointer-events: none;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.carousel-container .owl-nav .owl-prev, 
+.carousel-container .owl-nav .owl-next {
+    position: absolute;
+    pointer-events: auto;
+    z-index: 2;
+    width: 37px;
+    height: 70px;
+    top: 50%;
+    margin-top: -70px;
+    cursor: pointer;
+}
+@media screen and (max-width: 1024px) {
+	.carousel-container .owl-nav {
+	    display: none;
+	}
+}
+.template-index .main-content, #shopify-section-1506960034293 {
+    padding-top: 0 !important;
+}
+{% endstylesheet %}
