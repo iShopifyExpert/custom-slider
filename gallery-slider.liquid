@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
+<script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+
+<div class="owl-carousel owl-theme">
+  {% for block in section.blocks %}
+  <div class="item" data-index="{{forloop.index}}" {{ block.shopify_attributes }}>{% if block.settings.link != blank %}
+    <a class="item-link" href="{{ block.settings.link }}">{% endif %}{% if block.settings.image != blank %} 
+      {{ block.settings.image |  img_url: '1200x1200', crop: 'center' | img_tag: block.settings.image.alt }}{% else %}{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}{% if block.settings.text != blank %}
+      <span class="overlay-text">{{ block.settings.text }}</span>{% endif %}{% if block.settings.link_text != blank %}
+      <span class="overlay-link-text">{{ block.settings.link_text }}</span>{% endif %}{% if block.settings.link != blank %}
+    </a>{% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.owl-carousel').owlCarousel({loop:false,margin:10,nav:false,responsive:{0:{ items:1 },600:{ items:3 },1000:{ items:3 }} });
+  });
+</script>
+{% schema %}
+  {
+    "name": "Gallery Slider",
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "limit": 3,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "800 x 800px .jpg recommended"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Heading",
+            "default": "Hassle-free returns"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Text",
+            "default": "30-day postage paid returns"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+     "presets": [
+      {
+        "name": "Gallery Slider",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
